@@ -1,0 +1,50 @@
+sfObjectGuardUser:
+  actAs:  [Timestampable]
+  columns:
+    id:
+      type:           integer(4)
+      primary:        true
+      autoincrement:  true
+    email:
+      type:           string(128)
+      notnull:        true
+      unique:         true
+    algorithm:
+      type:           string(128)
+      default:        sha1
+      notnull:        true
+    salt:             string(128)
+    password:         string(128)
+    is_active:
+      type:           boolean
+      default:        false
+    is_super_admin:
+      type:           boolean
+      default:        false
+    last_login:
+      type:           timestamp
+    key_type_id:
+      type:           integer(4)
+    inviter_id:
+      type:           integer(4)
+  indexes:
+    is_active_idx:
+      fields:         [is_active]
+  relations:
+    Groups:
+      class:          sfObjectGuardGroup
+      local:          user_id
+      foreign:        group_id
+      refClass:       sfObjectGuardUserGroup
+      foreignAlias:   Users
+    KeyType:
+      class:          sfObjectGuardActivationKeyType
+      local:          key_type_id
+    Inviter:
+      class:          sfObjectGuardUser
+      local:          inviter_id
+    ActivationKeys:
+      class:          sfObjectGuardActivationKey
+      local:          id
+      foreign:        user_id
+

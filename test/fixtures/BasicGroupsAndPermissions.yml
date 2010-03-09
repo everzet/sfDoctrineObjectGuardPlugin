@@ -1,0 +1,72 @@
+Community:
+  Community1:
+    name:         test
+    description:  1232
+  Community2:
+    name:         test2
+    description:  2222
+  Community3:
+    name:         test3
+    description:  asdas
+
+sfObjectGuardActivationKeyType:
+  KeyType1:
+    name:         register
+    description:  key for basic user registration
+  KeyType2:
+    name:         invite
+    description:  key for invite type registration
+  KeyType3:
+    name:         password
+    description:  key for changing user password
+
+sfObjectGuardUser:
+  User1:
+    email:        ever.zet@gmail.com
+    is_active:    true
+    password:     test_PaSS
+  User2:
+    email:        everzet@gmail.com
+    is_active:    false
+
+sfObjectGuardGroup:
+  Participants:
+    name:         participant
+    description:  Community participant
+  Moderators:
+    name:         moderator
+    description:  Community moderator
+
+sfObjectGuardPermission:
+  ComAddPublication:
+    name:         add_publication
+    description:  Can add publications to Community
+  ComEditPublication:
+    name:         edit_publication
+    description:  Can edit publications in Community
+  ComDismissUser:
+    name:         dismiss_user
+    description:  Can dismiss user from Community
+  ComFryPublication:
+    name:         fry_publication
+    description:  Can set highest priority to publication in Community
+  ComSettings:
+    name:         settings
+    description:  Can view and change Community settings
+  ComPromoteModerator:
+    name:         promote_moderator
+    description:  Can promote users for moderator of Community
+
+sfObjectGuardGroupPermission:
+  ParticipantPerm1:
+    Group:        Participants
+    Permission:   ComAddPublication
+  ModeratorPerm1:
+    Group:        Moderators
+    Permission:   ComDismissUser
+  ModeratorPerm2:
+    Group:        Moderators
+    Permission:   ComFryPublication
+  ModeratorPerm3:
+    Group:        Moderators
+    Permission:   ComPromoteModerator

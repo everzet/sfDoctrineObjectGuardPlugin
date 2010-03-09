@@ -1,0 +1,12 @@
+Community:
+  actAs:
+    Guardable:        ~
+  columns:
+    id:
+      type:           integer(4)
+      primary:        true
+      autoincrement:  true
+    name:
+      type:           string(255)
+      unique:         true
+    description:      string(1000)

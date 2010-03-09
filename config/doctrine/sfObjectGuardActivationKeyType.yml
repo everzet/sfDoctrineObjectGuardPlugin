@@ -1,0 +1,25 @@
+sfObjectGuardActivationKeyType:
+  actAs:  [Timestampable]
+  columns:
+    id:
+      type:           integer(4)
+      primary:        true
+      autoincrement:  true
+    name:
+      type:           string(255)
+      unique:         true
+    description:      string(1000)
+    for_activation:
+      type:           boolean
+      default:        true
+  relations:
+    ActivationKeys:
+      class:          sfObjectGuardActivationKey
+      local:          id
+      foreign:        key_type_id
+    Users:
+      class:          sfObjectGuardUser
+      local:          id
+      foreign:        key_type_id
+      foreignType:    one
+

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header />
+    <body>
+      <!-- form field labels -->
+      <trans-unit>
+        <source>Your email address</source>
+        <target>Ваш адрес электронной почты</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your password</source>
+        <target>Ваш пароль</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Your new password</source>
+        <target>Ваш новый пароль</target>
+      </trans-unit>
+
+      <!-- form validator messages -->
+      <trans-unit>
+        <source>Wrong email address specified.</source>
+        <target>Введен неверный адрес электронной почты.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You must specify email.</source>
+        <target>Вы должны указать адрес электронной почты.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Password length must be 6 symbols min.</source>
+        <target>Длинна пароля должна быть более 6 символов.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You must specify password.</source>
+        <target>Вы должны указать пароль.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Wrong password or email address.</source>
+        <target>Неверный пароль или адрес электронной почты.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>User with such email address already registered.</source>
+        <target>Пользователь с таким адресом электронной почты уже зарегистрирован.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>No such user in our database.</source>
+        <target>Пользователя с таким адресом электронной почты в наших базах нет.</target>
+      </trans-unit>
+
+      <!-- form buttons & headers -->
+      <trans-unit>
+        <source>Enter to site</source>
+        <target>Войти на сайт</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Enter</source>
+        <target>Войти</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Setting the password</source>
+        <target>Установка пароля</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Set password</source>
+        <target>Установить пароль</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invite</source>
+        <target>Пригласить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invite user</source>
+        <target>Пригласить пользователя</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Password recovery</source>
+        <target>Восстановление пароля</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Recover</source>
+        <target>Восстановить</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Registration</source>
+        <target>Регистрация</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Register</source>
+        <target>Зарегистрироваться</target>
+      </trans-unit>
+
+      <!-- mail notifications -->
+      <trans-unit>
+        <source>Go to the following link to proceed with registration:</source>
+        <target>Перейдите по следующей ссылке, чтобы продолжить регистрацию:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>register</source>
+        <target>зарегистрироваться</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invite to the %1%.</source>
+        <target>Приглашение на %1%.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Go to the following link to proceed with password change:</source>
+        <target>Пройдите по следующей ссылке, чтобы сменить пароль:</target>
+      </trans-unit>
+      <trans-unit>
+        <source>password change</source>
+        <target>смена пароля</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Password recovery for %1%.</source>
+        <target>Восстановление пароля для %1%.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>We have successfully sent password recovery instruction to your email.</source>
+        <target>На ваш адрес электронной почты было выслано письмо с инструкцией по восстановлению пароля.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>We have successfully sent registration instruction to the specified email.</source>
+        <target>На указанный адрес электронной почты было выслано письмо с инструкцией по регистрации.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Account activation for %1%.</source>
+        <target>Активация аккаунта для %1%.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>We have successfully sent activation key to your email.</source>
+        <target>Мы отослали ключ активации на указанный вами адрес электронной почты.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Go to the following link to finish registration:</source>
+        <target>Пройдите по указанной ссылке, чтобы завершить регистрацию.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

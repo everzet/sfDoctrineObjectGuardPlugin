@@ -1,0 +1,23 @@
+sfObjectGuardGroupPermission:
+  actAs:  [Timestampable]
+  columns:
+    group_id:
+      type:           integer(4)
+      primary:        true
+    permission_id:
+      type:           integer(4)
+      primary:        true
+  relations:
+    Group:
+      class:          sfObjectGuardGroup
+      local:          group_id
+      onDelete:       CASCADE
+    Permission:
+      class:          sfObjectGuardPermission
+      local:          permission_id
+      onDelete:       CASCADE
+  options:
+    symfony:
+      form:           false
+      filter:         false
+

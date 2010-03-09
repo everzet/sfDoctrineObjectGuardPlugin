@@ -1,0 +1,27 @@
+sfObjectGuardUserGroup:
+  actAs:  [Timestampable]
+  columns:
+    id:
+      type:           integer(4)
+      primary:        true
+      autoincrement:  true
+    user_id:
+      type:           integer(4)
+      notnull:        true
+    group_id:
+      type:           integer(4)
+      notnull:        true
+  relations:
+    User:
+      class:          sfObjectGuardUser
+      local:          user_id
+      onDelete:       CASCADE
+    Group:
+      class:          sfObjectGuardGroup
+      local:          group_id
+      onDelete:       CASCADE
+  options:
+    symfony:
+      form:           false
+      filter:         false
+

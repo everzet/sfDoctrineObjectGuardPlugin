@@ -1,0 +1,19 @@
+sfObjectGuardPermission:
+  actAs:  [Timestampable]
+  columns:
+    id:
+      type:           integer(4)
+      primary:        true
+      autoincrement:  true
+    name:
+      type:           string(255)
+      unique:         true
+    description:      string(1000)
+  relations:
+    Groups:
+      class:          sfObjectGuardGroup
+      local:          permission_id
+      foreign:        group_id
+      refClass:       sfObjectGuardGroupPermission
+      foreignAlias:   Permissions
+
