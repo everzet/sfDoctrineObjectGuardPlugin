@@ -1,11 +1,11 @@
-Community:
-  Community1:
+sfObjectGuardTest:
+  sfObjectGuardTest1:
     name:         test
     description:  1232
-  Community2:
+  sfObjectGuardTest2:
     name:         test2
     description:  2222
-  Community3:
+  sfObjectGuardTest3:
     name:         test3
     description:  asdas
 
@@ -32,30 +32,30 @@ sfObjectGuardUser:
 sfObjectGuardGroup:
   Participants:
     name:         participant
-    description:  Community participant
+    description:  sfObjectGuardTest participant
   Moderators:
     name:         moderator
-    description:  Community moderator
+    description:  sfObjectGuardTest moderator
 
 sfObjectGuardPermission:
   ComAddPublication:
     name:         add_publication
-    description:  Can add publications to Community
+    description:  Can add publications to sfObjectGuardTest
   ComEditPublication:
     name:         edit_publication
-    description:  Can edit publications in Community
+    description:  Can edit publications in sfObjectGuardTest
   ComDismissUser:
     name:         dismiss_user
-    description:  Can dismiss user from Community
+    description:  Can dismiss user from sfObjectGuardTest
   ComFryPublication:
     name:         fry_publication
-    description:  Can set highest priority to publication in Community
+    description:  Can set highest priority to publication in sfObjectGuardTest
   ComSettings:
     name:         settings
-    description:  Can view and change Community settings
+    description:  Can view and change sfObjectGuardTest settings
   ComPromoteModerator:
     name:         promote_moderator
-    description:  Can promote users for moderator of Community
+    description:  Can promote users for moderator of sfObjectGuardTest
 
 sfObjectGuardGroupPermission:
   ParticipantPerm1:

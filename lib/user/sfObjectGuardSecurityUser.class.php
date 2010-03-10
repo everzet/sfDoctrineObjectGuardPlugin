@@ -46,6 +46,18 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
     parent::clearCredentials();
   }
 
+  protected function getCredentialOfTable($table)
+  {
+    //return $table->getTableName();
+    return $table->getComponentName();
+  }
+
+  protected function getTableOfCredential($credential)
+  {
+    //return Doctrine::getTable(Doctrine_Inflector::classify($credential));
+    return Doctrine::getTable($credential);
+  }
+
   public function hasCredential($credential, $useAnd = true)
   {
     if (!$this->getGuardUser())
@@ -72,7 +84,7 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
       }
       else
       {
-        $table = Doctrine::getTable(Doctrine_Inflector::classify($credentialParts[0]));
+        $table = $this->getTableOfCredential($credentialParts[0]);
       }
 
       if (!is_null($table))
@@ -101,8 +113,8 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
 
   public function hasCredentialForObject($credential, $object)
   {
-    $tableName = $object->getTable()->getTableName();
-    if ('sf_com_guard_user_group' == $tableName)
+    $tableName = $this->getCredentialOfTable($object->getTable());
+    if ('sf_object_guard_user_group' == $tableName)
     {
       $credentialString = self::CREDENTIAL_GLOBAL_NAMESPACE . '/' .
         $object->getId() . '/' . $credential;
@@ -117,7 +129,7 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
 
   public function isCredentialsLoadedForTable($table)
   {
-    return in_array($table->getTableName(), $this->credentialsLoadedFor);
+    return in_array($this->getCredentialOfTable($table), $this->credentialsLoadedFor);
   }
 
   public function reloadCredentialsForTable($table)
@@ -129,19 +141,19 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
   public function loadCredentialsForTable($table)
   {
     $this->addCredentials($table->getCredentialsForUser($this->getGuardUser()));
-    $this->credentialsLoadedFor[] = $table->getTableName();
+    $this->credentialsLoadedFor[] = $this->getCredentialOfTable($table);
   }
 
   public function removeCredentialsForTable($table)
   {
     foreach ($this->getCredentials() as $key => $value)
     {
-      if (0 === stripos($value, $table->getTableName()))
+      if (0 === stripos($value, $this->getCredentialOfTable($table)))
       {
         $this->removeCredential($value);
       }
     }
-    unset($this->credentialsLoadedFor[$table->getTableName()]);
+    unset($this->credentialsLoadedFor[$this->getCredentialOfTable($table)]);
   }
 
   public function isSuperAdmin()

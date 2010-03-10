@@ -94,7 +94,7 @@ class Doctrine_Template_Guardable extends Doctrine_Template
       if (!is_null($permission[3]))
       {
         $credentialString = $this->_table->
-          getTableName() . '/' . $permission[0] . '/' . $permission[3];
+          getComponentName() . '/' . $permission[0] . '/' . $permission[3];
         if (!in_array($credentialString, $credentials))
         {
           $credentials[] = $credentialString;
@@ -103,7 +103,7 @@ class Doctrine_Template_Guardable extends Doctrine_Template
       if ($permission[1] == $user->getId())
       {
         $credentialString = $this->_table->
-          getTableName() . '/' . $permission[0] . '/owner';
+          getComponentName() . '/' . $permission[0] . '/owner';
         if (!in_array($credentialString, $credentials))
         {
           $credentials[] = $credentialString;
