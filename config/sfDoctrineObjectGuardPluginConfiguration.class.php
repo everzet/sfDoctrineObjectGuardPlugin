@@ -32,7 +32,7 @@ class sfDoctrineObjectGuardPluginConfiguration extends sfPluginConfiguration
         'sfObjectGuardPasswordRemind'
       );
 
-      // Turn on modules in testing environment
+      // Turn on modules & security filter in testing environment
       if ('test' == sfConfig::get('sf_environment'))
       {
         sfConfig::set('sf_enabled_modules',

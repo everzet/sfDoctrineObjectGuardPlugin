@@ -64,13 +64,11 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
 
   protected function getCredentialOfTable($table)
   {
-    //return $table->getTableName();
     return $table->getComponentName();
   }
 
   protected function getTableOfCredential($credential)
   {
-    //return Doctrine::getTable(Doctrine_Inflector::classify($credential));
     return Doctrine::getTable($credential);
   }
 

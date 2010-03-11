@@ -29,6 +29,18 @@ sfObjectGuardUser:
     email:        everzet@gmail.com
     is_active:    false
     password:     tesPasas123sa
+  UserAdmin:
+    email:        admin@test.com
+    is_active:    true
+    password:     test_pass
+  UserModerator:
+    email:        moderator@test.com
+    is_active:    true
+    password:     test_pass
+  UserParticipant:
+    email:        part@test.com
+    is_active:    true
+    password:     test_pass
 
 sfObjectGuardGroup:
   Participants:
@@ -37,6 +49,9 @@ sfObjectGuardGroup:
   Moderators:
     name:         moderator
     description:  sfObjectGuardTest moderator
+  Admins:
+    name:         administrator
+    description:  sfObjectGuardTest administrator
 
 sfObjectGuardPermission:
   ComAddPublication:

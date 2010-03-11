@@ -76,7 +76,7 @@ $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($us
   'sfObjectGuardTest/' . $sfObjectGuardTest->getId() . '/add_publication',
   'sfObjectGuardTest/' . $sfObjectGuardTest->getId() . '/owner',
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/owner'
-), 'All "credentials for owner/owner/participant" with bouth groups loaded properly');
+), 'All "credentials for owner/owner/participant" with both groups loaded properly');
 
 $sfObjectGuardTest2->addUserToGroup($user1, $participantGroup);
 $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($user1), array(
@@ -84,7 +84,7 @@ $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($us
   'sfObjectGuardTest/' . $sfObjectGuardTest->getId() . '/owner',
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/add_publication',
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/owner'
-), 'All "credentials for owner/owner/participant/participant" with bouth groups loaded properly');
+), 'All "credentials for owner/owner/participant/participant" with both groups loaded properly');
 
 $sfObjectGuardTest2->addUserToGroup($user1, $moderatorGroup);
 $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($user1), array(
@@ -95,7 +95,7 @@ $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($us
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/dismiss_user',
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/fry_publication',
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/promote_moderator'
-), 'All "credentials for owner/owner/participant/participant/moderator" with bouth groups loaded properly');
+), 'All "credentials for owner/owner/participant/participant/moderator" with both groups loaded properly');
 
 $sfObjectGuardTest2->setOwnerId(null);
 $sfObjectGuardTest2->save();
@@ -106,7 +106,7 @@ $t->is_deeply(Doctrine::getTable('sfObjectGuardTest')->getCredentialsForUser($us
   'sfObjectGuardTest/' . $sfObjectGuardTest2->getId() . '/promote_moderator',
   'sfObjectGuardTest/' . $sfObjectGuardTest->getId() . '/add_publication',
   'sfObjectGuardTest/' . $sfObjectGuardTest->getId() . '/owner'
-), 'All "credentials for owner/participant/participant/moderator" with bouth groups loaded properly');
+), 'All "credentials for owner/participant/participant/moderator" with both groups loaded properly');
 
 $t->is($sfObjectGuardTest->getOwnerId(), $user1->getId(), '"getOwnerId" method works');
 $t->is($sfObjectGuardTest->getOwner(), $user1, '"getOwner" method works');
