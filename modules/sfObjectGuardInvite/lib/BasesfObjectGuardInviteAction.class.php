@@ -50,7 +50,12 @@ class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
         ));
 
         $this->getUser()->setFlash('notice', $this->getPartial('mailSentFlash'));
-        $this->redirect($this->generateUrl('sf_object_guard_invite'));
+
+        // if we not in dev environment - redirect
+        if ('dev' != sfConfig::get('sf_environment'))
+        {
+          $this->redirect($this->generateUrl('sf_object_guard_invite'));
+        }
       }
     }
   }
