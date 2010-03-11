@@ -51,7 +51,7 @@ abstract class sfObjectGuardPasswordAction extends sfAction
       ->setFrom(
         sfConfig::get(
           'app_robot_mail_address',
-          'robot@' . sfConfig::get('app_site_name', 'site')
+          'robot@' . sfConfig::get('sf_app_site_name', 'site.com')
         )
       )
       ->setTo($email)
