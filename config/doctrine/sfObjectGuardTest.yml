@@ -10,3 +10,7 @@ sfObjectGuardTest:
       type:           string(255)
       unique:         true
     description:      string(1000)
+  options:
+    symfony:
+      form:           false
+      filter:         false

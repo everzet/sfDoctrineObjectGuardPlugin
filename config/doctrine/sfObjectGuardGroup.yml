@@ -22,4 +22,3 @@ sfObjectGuardGroup:
       foreign:        permission_id
       refClass:       sfObjectGuardGroupPermission
       foreignAlias:   Groups
-

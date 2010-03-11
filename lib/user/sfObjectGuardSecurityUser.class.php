@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * This file is part of the sfDoctrineObjectGuardPlugin.
+ * (c) 2010 Konstantin Kudryashov <ever.zet@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * sfObjectGuardSecurityUser does things.
+ *
+ * @package    sfDoctrineObjectGuardPlugin
+ * @subpackage user
+ * @author     Konstantin Kudryashov <ever.zet@gmail.com>
+ * @version    1.0.0
+ */
 class sfObjectGuardSecurityUser extends sfBasicSecurityUser
 {
   const CREDENTIAL_TABLES_NAMESPACE = 'symfony/user/sfUser/credentialTables';

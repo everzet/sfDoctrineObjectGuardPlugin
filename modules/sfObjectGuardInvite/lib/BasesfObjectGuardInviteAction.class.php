@@ -16,7 +16,7 @@
  * @author     Konstantin Kudryashov <ever.zet@gmail.com>
  * @version    1.0.0
  */
-class BasesfObjectGuardInviteAction extends sfAction
+class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
 {
   public function execute($request)
   {
@@ -31,30 +31,25 @@ class BasesfObjectGuardInviteAction extends sfAction
 
       if ($this->form->isValid())
       {
+        // generate temporary password
+        $password = $this->generateTemporaryPassword();
+
+        // save new user
+        $this->form->setPassword($password);
         $user = $this->form->save();
 
         // invite key generation
-        $inviteKey = new sfObjectGuardActivationKey;
-        $inviteKey->setKeyType(
-          Doctrine::getTable('sfObjectGuardActivationKeyType')->findOneByName('invite')
-        );
+        $inviteKey = $this->generateActivationKey('invite');
         $inviteKey->setInviter($inviter);
         $inviteKey->setUser($user);
         $inviteKey->save();
 
         // invite sending
-        $this->getMailer()->composeAndSend(
-          sfConfig::get('app_robot_mail_address'),
-          $user->getEmail(),
-          $this->getContext()->getI18N()->__('Invite to the %1%.', array(
-            '%1%' => sfConfig::get('app_site_name', 'site')
-          )),
-          $this->getPartial('mailNotificationBody', array('key' => $inviteKey->getActivationKey()))
-        );
+        $this->getMailer()->send($this->getActivationMailMessage(
+          $user->getEmail(), $inviteKey->getActivationKey(), $password
+        ));
 
-        $this->getUser()->setFlash('notice',
-          'We have successfully sent registration instruction to the specified email.'
-        );
+        $this->getUser()->setFlash('notice', $this->getPartial('mailSentFlash'));
         $this->redirect($this->generateUrl('sf_object_guard_invite'));
       }
     }

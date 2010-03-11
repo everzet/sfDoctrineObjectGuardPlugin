@@ -16,4 +16,7 @@ sfObjectGuardRememberKey:
       class:          sfObjectGuardUser
       local:          user_id
       onDelete:       CASCADE
-
+  options:
+    symfony:
+      form:           false
+      filter:         false

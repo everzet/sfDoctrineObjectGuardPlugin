@@ -1,3 +1,7 @@
-<?php echo __('Go to the following link to proceed with password change:') ?>
+<?php use_helper('I18N') ?>
 
-<?php echo url_for('@sf_object_guard_activate?activation_key=' . $key, 'absolute=true') ?>
+<?php echo __('Go to the following link to proceed with password change:') ?>
+<?php echo link_to('activate', '@sf_object_guard_activate?activation_key=' . $key, 'absolute=true') ?>
+
+<?php echo __('Your email:') ?> "<?php echo $email ?>"
+<?php echo __('Your new password:') ?> "<?php echo $password ?>"

@@ -32,6 +32,14 @@ class sfDoctrineObjectGuardPluginConfiguration extends sfPluginConfiguration
         'sfObjectGuardPasswordRemind'
       );
 
+      // Turn on modules in testing environment
+      if ('test' == sfConfig::get('sf_environment'))
+      {
+        sfConfig::set('sf_enabled_modules',
+          array_merge(sfConfig::get('sf_enabled_modules', array()), $modules)
+        );
+      }
+
       foreach ($modules as $module)
       {
         if (in_array($module, sfConfig::get('sf_enabled_modules', array())))
@@ -41,8 +49,5 @@ class sfDoctrineObjectGuardPluginConfiguration extends sfPluginConfiguration
         }
       }
     }
-
-    $this->dispatcher->connect('controller.change_action',
-      array('sfObjectGuardPasswordChecker', 'checkUserPassword'));
   }
 }

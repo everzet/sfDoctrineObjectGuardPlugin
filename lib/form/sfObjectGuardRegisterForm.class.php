@@ -18,6 +18,8 @@
  */
 class sfObjectGuardRegisterForm extends PluginBasesfObjectGuardUserForm
 {
+  protected $password;
+
   public function configure()
   {
     parent::configure();
@@ -25,5 +27,17 @@ class sfObjectGuardRegisterForm extends PluginBasesfObjectGuardUserForm
 
     $this->validatorSchema->setPostValidator(new sfObjectGuardRegisterValidator);
     $this->widgetSchema->setNameFormat('register[%s]');
+  }
+
+  public function setPassword($password)
+  {
+    $this->password = $password;
+  }
+
+  public function doSave($con = null)
+  {
+    $this->getObject()->setPassword($this->password);
+
+    parent::doSave($con);
   }
 }

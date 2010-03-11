@@ -66,9 +66,9 @@ class BasesfObjectGuardAuthActions extends sfActions
 
     if ('password' == $activationKey->getKeyType()->getName())
     {
+      $user->setPassword($activationKey->getAdditional());
       $this->getUser()->signIn($user);
       $activationKey->delete();
-      return $this->redirect('@sf_object_guard_password');
     }
     else
     {
@@ -76,9 +76,9 @@ class BasesfObjectGuardAuthActions extends sfActions
       $user->save();
       $this->getUser()->signIn($user);
       $activationKey->delete();
-
-      return $this->redirect('@homepage');
     }
+
+    return $this->redirect('@homepage');
   }
 
   /**

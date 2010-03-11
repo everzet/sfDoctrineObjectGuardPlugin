@@ -24,4 +24,3 @@ sfObjectGuardUserGroup:
     symfony:
       form:           false
       filter:         false
-

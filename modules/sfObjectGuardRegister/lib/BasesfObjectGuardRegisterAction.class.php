@@ -16,7 +16,7 @@
  * @author     Konstantin Kudryashov <ever.zet@gmail.com>
  * @version    1.0.0
  */
-class BasesfObjectGuardRegisterAction extends sfAction
+class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
 {
   public function execute($request)
   {
@@ -28,29 +28,24 @@ class BasesfObjectGuardRegisterAction extends sfAction
 
       if ($this->form->isValid())
       {
+        // generate temporary password
+        $password = $this->generateTemporaryPassword();
+
+        // set temporary password & save user
+        $this->form->setPassword($password);
         $user = $this->form->save();
 
         // activation key generation
-        $activationKey = new sfObjectGuardActivationKey;
-        $activationKey->setKeyType(
-          Doctrine::getTable('sfObjectGuardActivationKeyType')->findOneByName('register')
-        );
+        $activationKey = $this->generateActivationKey('register');
         $activationKey->setUser($user);
         $activationKey->save();
 
         // activation key sending
-        $this->getMailer()->composeAndSend(
-          sfConfig::get('app_robot_mail_address'),
-          $user->getEmail(),
-          $this->getContext()->getI18N()->__('Account activation for %1%.', array(
-            '%1%' => sfConfig::get('app_site_name', 'site')
-          )),
-          $this->getPartial('mailNotificationBody', array('key' => $activationKey->getActivationKey()))
-        );
+        $this->getMailer()->send($this->getActivationMailMessage(
+          $user->getEmail(), $activationKey->getActivationKey(), $password
+        ));
 
-        $this->getUser()->setFlash('notice',
-          'We have successfully sent activation key to your email.'
-        );
+        $this->getUser()->setFlash('notice', $this->getPartial('mailSentFlash'));
         $this->redirect($this->generateUrl('sf_object_guard_register'));
       }
     }

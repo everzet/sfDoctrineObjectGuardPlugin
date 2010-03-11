@@ -1,10 +1,20 @@
 <?php
 
-/**
- * Login form.
+/*
+ * This file is part of the sfDoctrineObjectGuardPlugin.
+ * (c) 2010 Konstantin Kudryashov <ever.zet@gmail.com>
  *
- * @package    form
- * @subpackage User
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * PluginBasesfObjectGuardUserForm does things.
+ *
+ * @package    sfDoctrineObjectGuardPlugin
+ * @subpackage forms
+ * @author     Konstantin Kudryashov <ever.zet@gmail.com>
+ * @version    1.0.0
  */
 class PluginBasesfObjectGuardUserForm extends BasesfObjectGuardUserForm
 {

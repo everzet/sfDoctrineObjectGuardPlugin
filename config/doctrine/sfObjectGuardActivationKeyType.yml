@@ -22,4 +22,3 @@ sfObjectGuardActivationKeyType:
       local:          id
       foreign:        key_type_id
       foreignType:    one
-

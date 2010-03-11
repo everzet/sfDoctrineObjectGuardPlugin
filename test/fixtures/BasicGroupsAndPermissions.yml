@@ -28,6 +28,7 @@ sfObjectGuardUser:
   User2:
     email:        everzet@gmail.com
     is_active:    false
+    password:     tesPasas123sa
 
 sfObjectGuardGroup:
   Participants:

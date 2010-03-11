@@ -16,7 +16,7 @@
  * @author     Konstantin Kudryashov <ever.zet@gmail.com>
  * @version    1.0.0
  */
-class BasesfObjectGuardPasswordRemindAction extends sfAction
+class BasesfObjectGuardPasswordRemindAction extends sfObjectGuardPasswordAction
 {
   public function execute($request)
   {
@@ -31,27 +31,21 @@ class BasesfObjectGuardPasswordRemindAction extends sfAction
         $values = $this->form->getValues();
         $user = $values['user'];
 
+        // generate temporary password
+        $password = $this->generateTemporaryPassword();
+
         // password key generation
-        $passwordKey = new sfObjectGuardActivationKey;
-        $passwordKey->setKeyType(
-          Doctrine::getTable('sfObjectGuardActivationKeyType')->findOneByName('password')
-        );
+        $passwordKey = $this->generateActivationKey('password');
         $passwordKey->setUser($user);
+        $passwordKey->setAdditional($password);
         $passwordKey->save();
 
-        // password key sending
-        $this->getMailer()->composeAndSend(
-          sfConfig::get('app_robot_mail_address'),
-          $user->getEmail(),
-          $this->getContext()->getI18N()->__('Password recovery for %1%.', array(
-            '%1%' => sfConfig::get('app_site_name', 'site')
-          )),
-          $this->getPartial('mailNotificationBody', array('key' => $passwordKey->getActivationKey()))
-        );
+        // remind key sending
+        $this->getMailer()->send($this->getActivationMailMessage(
+          $user->getEmail(), $passwordKey->getActivationKey(), $password
+        ));
 
-        $this->getUser()->setFlash('notice',
-          'We have successfully sent password recovery instruction to your email.'
-        );
+        $this->getUser()->setFlash('notice', $this->getPartial('mailSentFlash'));
         $this->redirect($this->generateUrl('sf_object_guard_password_remind'));
       }
     }

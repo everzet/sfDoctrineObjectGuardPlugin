@@ -17,6 +17,8 @@ sfObjectGuardActivationKey:
       unique:         true
     inviter_id:
       type:           integer(4)
+    additional:
+      type:           clob
   relations:
     User:
       class:          sfObjectGuardUser
@@ -30,4 +32,3 @@ sfObjectGuardActivationKey:
       class:          sfObjectGuardActivationKeyType
       local:          key_type_id
       onDelete:       CASCADE
-

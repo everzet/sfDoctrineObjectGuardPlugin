@@ -20,4 +20,3 @@ sfObjectGuardGroupPermission:
     symfony:
       form:           false
       filter:         false
-

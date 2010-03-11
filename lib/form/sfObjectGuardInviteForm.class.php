@@ -16,12 +16,11 @@
  * @author     Konstantin Kudryashov <ever.zet@gmail.com>
  * @version    1.0.0
  */
-class sfObjectGuardInviteForm extends PluginBasesfObjectGuardUserForm
+class sfObjectGuardInviteForm extends sfObjectGuardRegisterForm
 {
   public function configure()
   {
     parent::configure();
-    unset($this['password']);
 
     $this->widgetSchema->setNameFormat('invite[%s]');
   }
