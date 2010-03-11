@@ -1,3 +1,5 @@
+<?php use_helper('I18N') ?>
+
 <div class="form">
   <h1><?php echo __('Password recovery') ?></h1>
 

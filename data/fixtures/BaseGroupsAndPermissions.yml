@@ -1,0 +1,10 @@
+sfObjectGuardActivationKeyType:
+  KeyType1:
+    name:         register
+    description:  key for basic user registration
+  KeyType2:
+    name:         invite
+    description:  key for invite type registration
+  KeyType3:
+    name:         password
+    description:  key for changing user password
