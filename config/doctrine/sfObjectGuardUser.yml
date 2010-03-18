@@ -51,4 +51,3 @@ sfObjectGuardUser:
       class:          sfObjectGuardActivationKey
       local:          id
       foreign:        user_id
-

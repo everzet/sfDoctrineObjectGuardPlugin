@@ -9,8 +9,8 @@ class PluginsfObjectGuardUserGroupTable extends Doctrine_Table
     return Doctrine_Query::create()->
       select('p.name as perm_name')->
       from('sfObjectGuardUserGroup ug')->
-      leftJoin('ug.sfObjectGuardGroup g')->
-      leftJoin('g.permissions p')->
+      leftJoin('ug.Group g')->
+      leftJoin('g.Permissions p')->
       where('ug.user_id = ?', $user->getId());
   }
 
@@ -18,12 +18,12 @@ class PluginsfObjectGuardUserGroupTable extends Doctrine_Table
   {
     $permissions = $this->
       getCredentialsForUserQuery($user)->
-      fetchArray();
+      execute(array(), Doctrine::HYDRATE_NONE);
 
     $credentials = array();
     foreach ($permissions as $permission)
     {
-      $credentials[] = 'global/' . $permission['perm_name'];
+      $credentials[] = 'global/' . $permission[0];
     }
 
     return $credentials;

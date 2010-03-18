@@ -29,18 +29,18 @@ sfObjectGuardUser:
     email:        everzet@gmail.com
     is_active:    false
     password:     tesPasas123sa
-  UserAdmin:
-    email:        admin@test.com
+  User3:
+    email:        cred_test1@tester.com
     is_active:    true
-    password:     test_pass
-  UserModerator:
-    email:        moderator@test.com
+    password:     test_PaSS
+  User4:
+    email:        cred_test2@tester.com
     is_active:    true
-    password:     test_pass
-  UserParticipant:
-    email:        part@test.com
+    password:     test_PaSS
+  User5:
+    email:        cred_test3@tester.com
     is_active:    true
-    password:     test_pass
+    password:     test_PaSS
 
 sfObjectGuardGroup:
   Participants:
@@ -66,9 +66,6 @@ sfObjectGuardPermission:
   ComFryPublication:
     name:         fry_publication
     description:  Can set highest priority to publication in sfObjectGuardTest
-  ComSettings:
-    name:         settings
-    description:  Can view and change sfObjectGuardTest settings
   ComPromoteModerator:
     name:         promote_moderator
     description:  Can promote users for moderator of sfObjectGuardTest

@@ -89,4 +89,43 @@ class sfObjectGuardRouting
       new sfRoute('/user/remind', array('module' => 'sfObjectGuardPasswordRemind', 'action' => 'index'))
     );
   }
+
+  /**
+   * Listens to the routing.load_configuration event & adds password remind page routes if needed
+   *
+   * @param sfEvent An sfEvent instance
+   */
+  static public function addCredentialsTestRoutes(sfEvent $event)
+  {
+    $routes = $event->getSubject();
+
+    //$routes->prependRoute(
+    //  'sf_object_guard_test_add_publication', 
+    //  new sfRoute('/sf_object_guard_test/add_publication', array(
+    //    'module' => 'sfObjectGuardCredentialsTest', 'action' => 'addPublication'
+    //  ))
+    //);
+
+    $routes->prependRoute(
+      'sf_object_guard_test_add_publication',
+      new sfDoctrineRoute('/sf_object_guard_test/:id/add_publication', array(
+        'module'  => 'sfObjectGuardCredentialsTest',
+        'action'  => 'addPublication'
+      ), array(), array(
+        'model'   => 'sfObjectGuardTest',
+        'type'    => 'object',
+      ))
+    );
+
+    $routes->prependRoute(
+      'sf_object_guard_test_edit_publication',
+      new sfDoctrineRoute('/sf_object_guard_test/:id/edit', array(
+        'module'  => 'sfObjectGuardCredentialsTest',
+        'action'  => 'editPublication'
+      ), array(), array(
+        'model'   => 'sfObjectGuardTest',
+        'type'    => 'object',
+      ))
+    );
+  }
 }

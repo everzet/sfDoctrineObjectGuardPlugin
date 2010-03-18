@@ -2,10 +2,11 @@
 
 include dirname(__FILE__) . '/../bootstrap/doctrine.php';
 
-$t = new lime_test(26, new lime_output_color);
+$t = new lime_test(29, new lime_output_color);
 
 $user1 = Doctrine::getTable('sfObjectGuardUser')->findOneByEmail('ever.zet@gmail.com');
 $user2 = Doctrine::getTable('sfObjectGuardUser')->findOneByEmail('everzet@gmail.com');
+$user3 = Doctrine::getTable('sfObjectGuardUser')->findOneByEmail('cred_test2@tester.com');
 $sfObjectGuardTest = Doctrine::getTable('sfObjectGuardTest')->findOneByName('test');
 $sfObjectGuardTest2 = Doctrine::getTable('sfObjectGuardTest')->findOneByName('test2');
 $participantGroup = Doctrine::getTable('sfObjectGuardGroup')->findOneByName('participant');
@@ -118,6 +119,21 @@ $t->is($sfObjectGuardTest->isUserInGroup($user1, $participantGroup), true, 'User
 $sfObjectGuardTest->removeUser($user1);
 $t->is($sfObjectGuardTest->isUserInGroup($user1, $participantGroup), false, 'User "is not participant"');
 $t->is($sfObjectGuardTest->isUserInGroup($user1, $participantGroup), false, 'User "is not moderator"');
+
+$user3->Groups[] = $moderatorGroup;
+$user3->save();
+
+$t->comment('Global rights');
+$usr = sfContext::getInstance()->getUser();
+$usr->signIn($user3);
+$t->ok(!$usr->hasCredential('global/add_publication'), 'Has not global rule to add publication');
+$t->ok($usr->hasCredential('global/dismiss_user'), 'Global rule to edit publication');
+
+$user3->Groups[] = $participantGroup;
+$user3->save();
+$usr->clearCredentials();
+
+$t->ok($usr->hasCredential('global/add_publication'), 'Now has global rule to add publication');
 
 function getUsersCountInGroup(sfObjectGuardUser $user1, sfObjectGuardGroup $group, sfObjectGuardTest $com)
 {
