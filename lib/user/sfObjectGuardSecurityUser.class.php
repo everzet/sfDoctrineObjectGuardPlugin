@@ -43,16 +43,24 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
   public function initialize(sfEventDispatcher $dispatcher, sfStorage $storage, $options = array())
   {
     parent::initialize($dispatcher, $storage, $options);
-    $this->credentialsLoadedFor = $storage->read(self::CREDENTIAL_TABLES_NAMESPACE);
-    if (!$this->isAuthenticated())
+
+    if (sfConfig::get('app_sf_object_guard_plugin_persistent_credentials', true))
     {
-      $this->credentialsLoadedFor = array();
+      $this->credentialsLoadedFor = $storage->read(self::CREDENTIAL_TABLES_NAMESPACE);
+      if (!$this->isAuthenticated())
+      {
+        $this->credentialsLoadedFor = array();
+      }
     }
   }
 
   public function shutdown()
   {
-    $this->storage->write(self::CREDENTIAL_TABLES_NAMESPACE, $this->credentialsLoadedFor);
+    if (sfConfig::get('app_sf_object_guard_plugin_persistent_credentials', true))
+    {
+      $this->storage->write(self::CREDENTIAL_TABLES_NAMESPACE, $this->credentialsLoadedFor);
+    }
+
     parent::shutdown();
   }
 
