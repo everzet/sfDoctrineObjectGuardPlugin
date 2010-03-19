@@ -35,6 +35,16 @@ class Doctrine_Guardable extends Doctrine_Record_Generator
 
   public function buildRelation()
   {
+    Doctrine::getTable('sfObjectGuardUser')->bind(array($this->_table->getComponentName(), array(
+      'local'     => 'id',
+      'foreign'   => 'user_id'
+    )), Doctrine_Relation::MANY);
+
+    Doctrine::getTable('sfObjectGuardGroup')->bind(array($this->_table->getComponentName(), array(
+      'local'     => 'id',
+      'foreign'   => 'group_id'
+    )), Doctrine_Relation::MANY);
+
     $this->_table->bind(array('sfObjectGuardUser as User', array(
       'local'     => 'user_id',
       'foreign'   => 'id',

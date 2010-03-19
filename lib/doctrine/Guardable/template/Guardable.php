@@ -20,6 +20,7 @@ class Doctrine_Template_Guardable extends Doctrine_Template
 {
   protected $_options = array(
     'className'     => '%CLASS%Guardable',
+    'foreignAlias'  => '%COMPONENT%s',
     'generateFiles' => false,
     'children'      => array()
   );
@@ -38,6 +39,8 @@ class Doctrine_Template_Guardable extends Doctrine_Template
   public function setUp()
   {
     $this->_plugin->initialize($this->_table);
+    $foreignAlias = str_replace('%COMPONENT%', $this->_table->getComponentName(),
+      $this->_options['foreignAlias']);
 
     $this->hasOne('sfObjectGuardUser as Owner', array(
       'local'     => 'owner_id',
@@ -47,16 +50,16 @@ class Doctrine_Template_Guardable extends Doctrine_Template
 
     $this->hasMany('sfObjectGuardUser as Users', array(
       'local'         => 'object_id',
-      'refClass'      => $this->_plugin->getTable()->getComponentName(),
       'foreign'       => 'user_id',
-      'foreignAlias'  => 'Objects'
+      'refClass'      => $this->_plugin->getTable()->getComponentName(),
+      'foreignAlias'  => $foreignAlias
     ));
 
     $this->hasMany('sfObjectGuardGroup as Groups', array(
       'local'         => 'object_id',
-      'refClass'      => $this->_plugin->getTable()->getComponentName(),
       'foreign'       => 'group_id',
-      'foreignAlias'  => 'Objects'
+      'refClass'      => $this->_plugin->getTable()->getComponentName(),
+      'foreignAlias'  => $foreignAlias
     ));
   }
 
