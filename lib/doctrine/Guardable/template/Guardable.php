@@ -21,6 +21,8 @@ class Doctrine_Template_Guardable extends Doctrine_Template
   protected $_options = array(
     'className'     => '%CLASS%Guardable',
     'foreignAlias'  => '%COMPONENT%s',
+    'ownerColumn'   => 'owner_id',
+    'onlyOwnable'   => false,
     'generateFiles' => false,
     'children'      => array()
   );
@@ -28,39 +30,47 @@ class Doctrine_Template_Guardable extends Doctrine_Template
   public function __construct(array $options = array())
   {
     $this->_options = Doctrine_Lib::arrayDeepMerge($this->_options, $options);
-    $this->_plugin = new Doctrine_Guardable($this->_options);
+
+    if (!$this->_options['onlyOwnable'])
+    {
+      $this->_plugin = new Doctrine_Guardable($this->_options);
+    }
   }
 
   public function setTableDefinition()
   {
-    $this->hasColumn('owner_id', 'integer', 4);
+    $this->hasColumn($this->_options['ownerColumn'], 'integer', 4);
   }
 
   public function setUp()
   {
-    $this->_plugin->initialize($this->_table);
     $foreignAlias = str_replace('%COMPONENT%', $this->_table->getComponentName(),
       $this->_options['foreignAlias']);
 
     $this->hasOne('sfObjectGuardUser as Owner', array(
-      'local'     => 'owner_id',
+      'local'     => $this->_options['ownerColumn'],
       'foreign'   => 'id',
       'onDelete'  => 'CASCADE'
     ));
 
-    $this->hasMany('sfObjectGuardUser as Users', array(
-      'local'         => 'object_id',
-      'foreign'       => 'user_id',
-      'refClass'      => $this->_plugin->getTable()->getComponentName(),
-      'foreignAlias'  => $foreignAlias
-    ));
+    if (!$this->_options['onlyOwnable'])
+    {
+      $this->_plugin->initialize($this->_table);
 
-    $this->hasMany('sfObjectGuardGroup as Groups', array(
-      'local'         => 'object_id',
-      'foreign'       => 'group_id',
-      'refClass'      => $this->_plugin->getTable()->getComponentName(),
-      'foreignAlias'  => $foreignAlias
-    ));
+      $this->hasMany('sfObjectGuardUser as Users', array(
+        'local'         => 'object_id',
+        'foreign'       => 'user_id',
+        'refClass'      => $this->_plugin->getTable()->getComponentName(),
+        'foreignAlias'  => $foreignAlias
+      ));
+
+      $this->hasMany('sfObjectGuardGroup as Groups', array(
+        'local'         => 'object_id',
+        'foreign'       => 'group_id',
+        'refClass'      => $this->_plugin->getTable()->getComponentName(),
+        'foreignAlias'  => $foreignAlias
+      ));
+    }
   }
 
   /**
@@ -71,13 +81,22 @@ class Doctrine_Template_Guardable extends Doctrine_Template
    */
   protected function getCredentialsForUserQuery(sfObjectGuardUser $user)
   {
-    return Doctrine_Query::create()->
-      select('g.id, o.id, p.name, o.owner_id')->
+    $query = Doctrine_Query::create()->
+      select('o.id, o.' . $this->_options['ownerColumn'])->
       from($this->_table->getComponentName() . ' o')->
-      where('u.id = ? OR o.owner_id = ?', array($user->getId(), $user->getId()))->
-      leftJoin('o.Users u')->
-      leftJoin('o.Groups g')->
-      leftJoin('g.Permissions p');
+      where('o.' . $this->_options['ownerColumn'] . ' = ?', $user->getId());
+
+    if (!$this->_options['onlyOwnable'])
+    {
+      $query->
+        addSelect('g.id, p.name')->
+        orWhere('u.id = ?', $user->getId())->
+        leftJoin('o.Users u')->
+        leftJoin('o.Groups g')->
+        leftJoin('g.Permissions p');
+    }
+
+    return $query;
   }
 
   /**
@@ -94,7 +113,7 @@ class Doctrine_Template_Guardable extends Doctrine_Template
     $credentials = array();
     foreach ($permissions as $permission)
     {
-      if (!is_null($permission[3]))
+      if (!$this->_options['onlyOwnable'] && !is_null($permission[3]))
       {
         $credentialString = $this->_table->
           getComponentName() . '/' . $permission[0] . '/' . $permission[3];
@@ -138,6 +157,11 @@ class Doctrine_Template_Guardable extends Doctrine_Template
    */
   public function addUserToGroup(sfObjectGuardUser $user, sfObjectGuardGroup $group, $con = null)
   {
+    if ($this->_options['onlyOwnable'])
+    {
+      throw new Exception(sprintf('Model "%s" is only Ownable', $this->_table->getComponentName()));
+    }
+
     $connection = $this->_plugin->getTable()->create();
 
     $connection->set('Object', $this->getInvoker());
@@ -155,6 +179,11 @@ class Doctrine_Template_Guardable extends Doctrine_Template
    */
   public function removeUserFromGroup(sfObjectGuardUser $user, sfObjectGuardGroup $group)
   {
+    if ($this->_options['onlyOwnable'])
+    {
+      throw new Exception(sprintf('Model "%s" is only Ownable', $this->_table->getComponentName()));
+    }
+
     Doctrine_Query::create()->
       delete($this->_plugin->getTable()->getComponentName())->
       where('object_id = ?', $this->getInvoker()->getId())->
@@ -172,6 +201,11 @@ class Doctrine_Template_Guardable extends Doctrine_Template
    */
   public function isUserInGroup(sfObjectGuardUser $user, sfObjectGuardGroup $group)
   {
+    if ($this->_options['onlyOwnable'])
+    {
+      throw new Exception(sprintf('Model "%s" is only Ownable', $this->_table->getComponentName()));
+    }
+
     return Doctrine_Query::create()->
       from($this->_plugin->getTable()->getComponentName())->
       where('object_id = ?', $this->getInvoker()->getId())->
@@ -189,6 +223,11 @@ class Doctrine_Template_Guardable extends Doctrine_Template
    */
   public function removeUser(sfObjectGuardUser $user)
   {
+    if ($this->_options['onlyOwnable'])
+    {
+      throw new Exception(sprintf('Model "%s" is only Ownable', $this->_table->getComponentName()));
+    }
+
     Doctrine_Query::create()->
       delete($this->_plugin->getTable()->getComponentName())->
       where('object_id = ?', $this->getInvoker()->getId())->
