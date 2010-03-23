@@ -32,3 +32,6 @@ sfObjectGuardActivationKey:
       class:          sfObjectGuardActivationKeyType
       local:          key_type_id
       onDelete:       CASCADE
+  options:
+    collate:          utf8_unicode_ci
+    charset:          utf8

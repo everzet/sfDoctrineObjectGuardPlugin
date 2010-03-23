@@ -14,3 +14,5 @@ sfObjectGuardTest:
     symfony:
       form:           false
       filter:         false
+    collate:        utf8_unicode_ci
+    charset:        utf8

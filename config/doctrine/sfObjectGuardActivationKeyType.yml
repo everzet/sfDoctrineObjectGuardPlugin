@@ -22,3 +22,6 @@ sfObjectGuardActivationKeyType:
       local:          id
       foreign:        key_type_id
       foreignType:    one
+  options:
+    collate:          utf8_unicode_ci
+    charset:          utf8

@@ -51,3 +51,6 @@ sfObjectGuardUser:
       class:          sfObjectGuardActivationKey
       local:          id
       foreign:        user_id
+  options:
+    collate:          utf8_unicode_ci
+    charset:          utf8

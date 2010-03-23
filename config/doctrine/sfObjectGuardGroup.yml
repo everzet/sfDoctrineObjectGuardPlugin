@@ -22,3 +22,6 @@ sfObjectGuardGroup:
       foreign:        permission_id
       refClass:       sfObjectGuardGroupPermission
       foreignAlias:   Groups
+  options:
+    collate:          utf8_unicode_ci
+    charset:          utf8
