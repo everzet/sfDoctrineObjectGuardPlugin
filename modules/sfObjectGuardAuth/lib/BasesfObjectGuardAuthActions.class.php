@@ -25,7 +25,7 @@ class BasesfObjectGuardAuthActions extends sfActions
    */
   public function executeLogin(sfWebRequest $request)
   {
-    $this->form = new sfObjectGuardLoginForm;
+    $this->form = $this->getLoginForm();
 
     if ($request->isMethod('post'))
     {
@@ -40,6 +40,16 @@ class BasesfObjectGuardAuthActions extends sfActions
         return $this->redirect('@homepage');
       }
     }
+  }
+
+  /**
+   * Returns new login form
+   *
+   * @return sfForm
+   */
+  protected function getLoginForm()
+  {
+    return new sfObjectGuardLoginForm;
   }
 
   /**
@@ -91,7 +101,7 @@ class BasesfObjectGuardAuthActions extends sfActions
     $user = $this->getUser()->getGuardUser();
     $this->redirectUnless($user, '@homepage');
 
-    $this->form = new sfObjectGuardPasswordForm;
+    $this->form = $this->getPasswordForm();
 
     if ($request->isMethod('post'))
     {
@@ -106,5 +116,15 @@ class BasesfObjectGuardAuthActions extends sfActions
         $this->redirect('@homepage');
       }
     }
+  }
+
+  /**
+   * Returns new password change form
+   *
+   * @return sfForm
+   */
+  protected function getPasswordForm()
+  {
+    return new sfObjectGuardPasswordForm;
   }
 }
