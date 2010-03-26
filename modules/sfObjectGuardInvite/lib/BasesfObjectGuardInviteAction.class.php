@@ -18,12 +18,17 @@
  */
 class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
 {
+  protected function getInviteForm()
+  {
+    return new sfObjectGuardInviteForm;
+  }
+
   public function execute($request)
   {
     $inviter = $this->getUser()->getGuardUser();
     $this->redirectIf(is_null($inviter), '@homepage');
 
-    $this->form = new sfObjectGuardInviteForm;
+    $this->form = $this->getInviteForm();
 
     if ($request->isMethod('post'))
     {

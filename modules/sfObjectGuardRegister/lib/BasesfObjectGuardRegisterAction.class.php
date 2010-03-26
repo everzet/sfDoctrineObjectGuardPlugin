@@ -18,9 +18,14 @@
  */
 class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
 {
+  protected function getRegisterForm()
+  {
+    return new sfObjectGuardRegisterForm;
+  }
+
   public function execute($request)
   {
-    $this->form = new sfObjectGuardRegisterForm;
+    $this->form = $this->getRegisterForm();
 
     if ($request->isMethod('post'))
     {

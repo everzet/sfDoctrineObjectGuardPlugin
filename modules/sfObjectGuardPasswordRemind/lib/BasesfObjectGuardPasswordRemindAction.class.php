@@ -18,9 +18,14 @@
  */
 class BasesfObjectGuardPasswordRemindAction extends sfObjectGuardPasswordAction
 {
+  protected function getReminderForm()
+  {
+    return new sfObjectGuardReminderForm;
+  }
+
   public function execute($request)
   {
-    $this->form = new sfObjectGuardReminderForm;
+    $this->form = $this->getReminderForm();
 
     if ($request->isMethod('post'))
     {
