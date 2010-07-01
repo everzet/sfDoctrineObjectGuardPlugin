@@ -55,7 +55,9 @@ class sfObjectGuardBasicSecurityFilter extends sfBasicSecurityFilter
     if (is_null($this->object))
     {
       $route = $this->getContext()->getRequest()->getAttribute('sf_route');
-      if ($route instanceof sfDoctrineRoute)
+      $options = $route->getOptions();
+      $parameters = $route->getParameters();
+      if ($route instanceof sfDoctrineRoute && 'list' !== $options['type'] && !preg_match('#(?:new|create)#', $parameters['action']))
       {
         $this->object = $route->getObject();
       }
@@ -73,7 +75,7 @@ class sfObjectGuardBasicSecurityFilter extends sfBasicSecurityFilter
       $credential = is_array($credential) ? $credential : array($credential);
       foreach ($credential as $key => $value)
       {
-        $credential[$key] = str_ireplace('/id/', '/' . $this->getRouteObject()->getId() . '/', $value);
+        $credential[$key] = str_ireplace(':id', $this->getRouteObject()->getId(), $value);
       }
     }
 
