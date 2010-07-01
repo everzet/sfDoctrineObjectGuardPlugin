@@ -69,10 +69,27 @@ class sfObjectGuardBasicSecurityFilter extends sfBasicSecurityFilter
   protected function getUserCredential()
   {
     $credential = parent::getUserCredential();
+    $credential = is_array($credential) ? $credential : array($credential);
+    $parameters = $this->getContext()->getRequest()->getAttribute('sf_route')->getParameters();
+
+    foreach ($credential as $key => $value)
+    {
+      if (preg_match('#^(?P<field>.*?)\@(?P<table>.*?)\/\:id\/(?P<perm>.*?)$#', $value, $values))
+      {
+        $callback = sprintf('findOneBy%s', ucfirst($values['field']));
+        $object   = Doctrine::getTable($values['table'])->$callback(
+          $parameters[$values['field']]
+        );
+
+        $credential[$key] = sprintf(
+          '%s/%d/%s',
+          $values['table'], $object->getId(), $values['perm']
+        );
+      }
+    }
 
     if (!is_null($this->getRouteObject()))
     {
-      $credential = is_array($credential) ? $credential : array($credential);
       foreach ($credential as $key => $value)
       {
         $credential[$key] = str_ireplace(':id', $this->getRouteObject()->getId(), $value);
