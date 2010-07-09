@@ -49,7 +49,9 @@ class BasesfObjectGuardAuthActions extends sfActions
    */
   protected function getLoginForm()
   {
-    return new sfObjectGuardLoginForm;
+    $class = sfConfig::get('app_sf_object_guard_plugin_login_form', 'sfObjectGuardLoginForm');
+
+    return new $class;
   }
 
   /**
@@ -125,6 +127,8 @@ class BasesfObjectGuardAuthActions extends sfActions
    */
   protected function getPasswordForm()
   {
-    return new sfObjectGuardPasswordForm;
+    $class = sfConfig::get('app_sf_object_guard_plugin_password_form', 'sfObjectGuardPasswordForm');
+
+    return new $class;
   }
 }
