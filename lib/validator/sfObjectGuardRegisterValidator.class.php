@@ -32,11 +32,11 @@ class sfObjectGuardRegisterValidator extends sfValidatorBase
 
     if (Doctrine::getTable('sfObjectGuardUser')->findOneByEmail($email))
     {
-      $this->setMessage('invalid', 'User with such email address already registered.');
+      $this->setMessage('invalid', 'User with such email address already registered');
       throw new sfValidatorErrorSchema(
         $this,
         array(
-          $this->getOption('global') => new sfValidatorError($this, 'invalid')
+          'email' => new sfValidatorError($this, 'invalid')
         )
       );
     }

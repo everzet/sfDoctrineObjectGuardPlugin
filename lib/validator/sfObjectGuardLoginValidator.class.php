@@ -42,12 +42,12 @@ class sfObjectGuardLoginValidator extends sfValidatorBase
       }
     }
 
-    $this->setMessage('invalid', 'Wrong password or email address.');
+    $this->setMessage('invalid', 'Wrong password or email address');
 
     throw new sfValidatorErrorSchema(
       $this,
       array(
-        $this->getOption('global') => new sfValidatorError($this, 'invalid')
+        'email' => new sfValidatorError($this, 'invalid')
       )
     );
   }
