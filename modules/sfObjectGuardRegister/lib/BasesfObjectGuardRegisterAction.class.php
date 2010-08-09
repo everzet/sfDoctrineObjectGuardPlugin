@@ -58,7 +58,6 @@ class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
           $this->getUser()->setFlash('notice',
             $this->getPartial('mailSentFlash', array('user' => $user))
           );
-
           $this->redirect($this->generateUrl('sf_object_guard_register'));
         }
       }

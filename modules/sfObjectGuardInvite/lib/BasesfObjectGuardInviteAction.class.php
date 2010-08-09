@@ -20,7 +20,9 @@ class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
 {
   protected function getInviteForm()
   {
-    return new sfObjectGuardInviteForm;
+    $class = sfConfig::get('app_sf_object_guard_plugin_invite_form', 'sfObjectGuardInviteForm');
+
+    return new $class;
   }
 
   public function execute($request)
@@ -54,11 +56,12 @@ class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
           $user->getEmail(), $inviteKey->getActivationKey(), $password
         ));
 
-        $this->getUser()->setFlash('notice', $this->getPartial('mailSentFlash'));
-
         // if we not in dev environment - redirect
-        if ('dev' != sfConfig::get('sf_environment'))
+        if ('dev' !== sfConfig::get('sf_environment'))
         {
+          $this->getUser()->setFlash('notice',
+            $this->getPartial('mailSentFlash', array('user' => $user))
+          );
           $this->redirect($this->generateUrl('sf_object_guard_invite'));
         }
       }
