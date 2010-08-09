@@ -202,7 +202,7 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
     // remember?
     if ($remember)
     {
-      $expiration_age = sfConfig::get('app_sf_com_guard_plugin_remember_key_expiration_age', 15 * 24 * 3600);
+      $expiration_age = sfConfig::get('app_sf_object_guard_plugin_remember_key_expiration_age', 15 * 24 * 3600);
       // remove old keys
       Doctrine_Query::create()
         ->delete()
@@ -223,12 +223,12 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
       // save key
       $rk = new sfObjectGuardRememberKey();
       $rk->setRememberKey($key);
-      $rk->setsfObjectGuardUser($user);
+      $rk->setUser($user);
       $rk->setIpAddress($_SERVER['REMOTE_ADDR']);
       $rk->save($con);
 
       // make key as a cookie
-      $remember_cookie = sfConfig::get('app_sf_com_guard_plugin_remember_cookie_name', 'sfRemember');
+      $remember_cookie = sfConfig::get('app_sf_object_guard_plugin_remember_cookie_name', 'sfRemember');
       sfContext::getInstance()->getResponse()->setCookie($remember_cookie, $key, time() + $expiration_age);
     }
   }
@@ -251,8 +251,8 @@ class sfObjectGuardSecurityUser extends sfBasicSecurityUser
     $this->user = null;
     $this->clearCredentials();
     $this->setAuthenticated(false);
-    $expiration_age = sfConfig::get('app_sf_com_guard_plugin_remember_key_expiration_age', 15 * 24 * 3600);
-    $remember_cookie = sfConfig::get('app_sf_com_guard_plugin_remember_cookie_name', 'sfRemember');
+    $expiration_age = sfConfig::get('app_sf_object_guard_plugin_remember_key_expiration_age', 15 * 24 * 3600);
+    $remember_cookie = sfConfig::get('app_sf_object_guard_plugin_remember_cookie_name', 'sfRemember');
     sfContext::getInstance()->getResponse()->setCookie($remember_cookie, '', time() - $expiration_age);
   }
 

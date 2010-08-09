@@ -31,14 +31,14 @@ class PluginBasesfObjectGuardUserForm extends BasesfObjectGuardUserForm
 
     $this->setValidators(array(
       'email'     => new sfValidatorEmail(array(), array(
-        'invalid'   => 'Wrong email address specified.',
-        'required'  => 'You must specify email.'
+        'invalid'   => 'Wrong email address specified',
+        'required'  => 'You must specify email'
       )),
       'password'  => new sfValidatorString(array(
         'min_length'  => 6
       ), array(  
-        'min_length'  => 'Password length must be 6 symbols min.',
-        'required'    => 'You must specify password.'
+        'min_length'  => 'Password length must be 6 symbols min',
+        'required'    => 'You must specify password'
       ))
     ));
   }
