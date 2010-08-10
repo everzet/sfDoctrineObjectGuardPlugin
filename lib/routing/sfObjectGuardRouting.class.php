@@ -37,7 +37,7 @@ class sfObjectGuardRouting
     );
     $routes->prependRoute(
       'sf_object_guard_activate',
-      new sfDoctrineRoute('/user/activate/:activation_key', array(
+      new sfDoctrineRoute('/users/activate/:activation_key', array(
         'module'  => 'sfObjectGuardAuth',
         'action'  => 'activate'
       ), array(), array(
@@ -47,7 +47,7 @@ class sfObjectGuardRouting
     );
     $routes->prependRoute(
       'sf_object_guard_password', 
-      new sfRoute('/user/password', array('module' => 'sfObjectGuardAuth', 'action' => 'password'))
+      new sfRoute('/users/password', array('module' => 'sfObjectGuardAuth', 'action' => 'password'))
     );
   }
 
@@ -60,7 +60,7 @@ class sfObjectGuardRouting
   {
     $event->getSubject()->prependRoute(
       'sf_object_guard_invite', 
-      new sfRoute('/user/invite', array('module' => 'sfObjectGuardInvite', 'action' => 'index'))
+      new sfRoute('/users/invite', array('module' => 'sfObjectGuardInvite', 'action' => 'index'))
     );
   }
 
@@ -86,7 +86,7 @@ class sfObjectGuardRouting
   {
     $event->getSubject()->prependRoute(
       'sf_object_guard_password_remind', 
-      new sfRoute('/user/remind', array('module' => 'sfObjectGuardPasswordRemind', 'action' => 'index'))
+      new sfRoute('/users/remind', array('module' => 'sfObjectGuardPasswordRemind', 'action' => 'index'))
     );
   }
 
