@@ -81,6 +81,9 @@ class BasesfObjectGuardAuthActions extends sfActions
       $user->setPassword($activationKey->getAdditional());
       $this->getUser()->signIn($user);
       $activationKey->delete();
+      $this->getUser()->setFlash('notice',
+        $this->getPartial('passwordChangeSuccessFlash', array('user' => $user))
+      );
     }
     else
     {
@@ -88,6 +91,9 @@ class BasesfObjectGuardAuthActions extends sfActions
       $user->save();
       $this->getUser()->signIn($user);
       $activationKey->delete();
+      $this->getUser()->setFlash('notice',
+        $this->getPartial('activationSuccessFlash', array('user' => $user))
+      );
     }
 
     return $this->redirect('@homepage');
