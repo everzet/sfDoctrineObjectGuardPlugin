@@ -4,5 +4,19 @@
  */
 class PluginsfObjectGuardActivationKeyTable extends Doctrine_Table
 {
+  public function removeUserKeys($user, $type = null)
+  {
+    $query = $this->createQuery('k')->delete();
 
+    $query->where('k.user_id = ?', $user->getId());
+
+    if (null !== $type)
+    {
+      $kt = Doctrine::getTable('sfObjectGuardActivationKeyType')->findOneByName($type);
+      $query->
+        andWhere('k.key_type_id = ?', $kt->getId());
+    }
+
+    return $query->execute();
+  }
 }

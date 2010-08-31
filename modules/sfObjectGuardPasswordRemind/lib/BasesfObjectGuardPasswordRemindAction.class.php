@@ -41,6 +41,9 @@ class BasesfObjectGuardPasswordRemindAction extends sfObjectGuardPasswordAction
         // generate temporary password
         $password = $this->generateTemporaryPassword();
 
+        // remove old reminding records
+        Doctrine::getTable('sfObjectGuardActivationKey')->removeUserKeys($user, 'password');
+
         // password key generation
         $passwordKey = $this->generateActivationKey('password');
         $passwordKey->setUser($user);
