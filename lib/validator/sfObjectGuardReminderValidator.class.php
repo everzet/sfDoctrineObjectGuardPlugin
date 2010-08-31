@@ -35,13 +35,10 @@ class sfObjectGuardReminderValidator extends sfValidatorBase
       return array_merge($values, array('user' => $user));
     }
 
-    $this->setMessage('invalid', 'No such user in our database.');
+    $this->setMessage('invalid', 'No such user in our database');
 
     throw new sfValidatorErrorSchema(
-      $this,
-      array(
-        $this->getOption('global') => new sfValidatorError($this, 'invalid')
-      )
+      $this, array('email' => new sfValidatorError($this, 'invalid'))
     );
   }
 }
