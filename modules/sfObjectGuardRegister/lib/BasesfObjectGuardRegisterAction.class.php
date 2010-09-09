@@ -41,6 +41,7 @@ class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
         // set temporary password & save user
         $this->form->setPassword($password);
         $user = $this->form->save();
+        $user->postRegister();
 
         // activation key generation
         $activationKey = $this->generateActivationKey('register');

@@ -85,4 +85,6 @@ abstract class PluginsfObjectGuardUser extends BasesfObjectGuardUser
     $this->setInviterId($activationKey->getInviterId());
     $this->setIsActive(true);
   }
+
+  public function postRegister() {}
 }
