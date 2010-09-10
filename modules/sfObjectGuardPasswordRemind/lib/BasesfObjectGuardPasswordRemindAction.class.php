@@ -55,15 +55,20 @@ class BasesfObjectGuardPasswordRemindAction extends sfObjectGuardPasswordAction
           $user->getEmail(), $passwordKey->getActivationKey(), $password
         ));
 
-        // if we not in dev environment - redirect
-        if ('dev' !== sfConfig::get('sf_environment'))
-        {
-          $this->getUser()->setFlash('notice',
-            $this->getPartial('mailSentFlash', array('user' => $user))
-          );
-          $this->redirect($this->generateUrl('sf_object_guard_password_remind'));
-        }
+        $this->remindSuccess($user);
       }
+    }
+  }
+
+  protected function remindSuccess($user)
+  {
+    // if we not in dev environment - redirect
+    if ('dev' !== sfConfig::get('sf_environment'))
+    {
+      $this->getUser()->setFlash('notice',
+        $this->getPartial('mailSentFlash', array('user' => $user))
+      );
+      $this->redirect($this->generateUrl('sf_object_guard_password_remind'));
     }
   }
 }

@@ -53,15 +53,20 @@ class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
           $user->getEmail(), $activationKey->getActivationKey(), $password
         ));
 
-        // if we not in dev environment - redirect
-        if ('dev' !== sfConfig::get('sf_environment'))
-        {
-          $this->getUser()->setFlash('notice',
-            $this->getPartial('mailSentFlash', array('user' => $user))
-          );
-          $this->redirect($this->generateUrl('sf_object_guard_register'));
-        }
+        $this->registerSuccess($user);
       }
+    }
+  }
+
+  protected function registerSuccess($user)
+  {
+    // if we not in dev environment - redirect
+    if ('dev' !== sfConfig::get('sf_environment'))
+    {
+      $this->getUser()->setFlash('notice',
+        $this->getPartial('mailSentFlash', array('user' => $user))
+      );
+      $this->redirect($this->generateUrl('sf_object_guard_register'));
     }
   }
 }
