@@ -52,7 +52,7 @@ class BasesfObjectGuardPasswordRemindAction extends sfObjectGuardPasswordAction
 
         // remind key sending
         $this->getMailer()->send($this->getActivationMailMessage(
-          $user->getEmail(), $passwordKey->getActivationKey(), $password
+          $user, $passwordKey->getActivationKey(), $password
         ));
 
         $this->remindSuccess($user);

@@ -50,7 +50,7 @@ class BasesfObjectGuardRegisterAction extends sfObjectGuardPasswordAction
 
         // activation key sending
         $this->getMailer()->send($this->getActivationMailMessage(
-          $user->getEmail(), $activationKey->getActivationKey(), $password
+          $user, $activationKey->getActivationKey(), $password
         ));
 
         $this->registerSuccess($user);

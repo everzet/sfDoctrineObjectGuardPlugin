@@ -53,7 +53,7 @@ class BasesfObjectGuardInviteAction extends sfObjectGuardPasswordAction
 
         // invite sending
         $this->getMailer()->send($this->getActivationMailMessage(
-          $user->getEmail(), $inviteKey->getActivationKey(), $password
+          $user, $inviteKey->getActivationKey(), $password
         ));
 
         // if we not in dev environment - redirect

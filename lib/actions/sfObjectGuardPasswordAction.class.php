@@ -45,14 +45,14 @@ abstract class sfObjectGuardPasswordAction extends sfAction
     return $password;
   }
 
-  protected function getActivationMailMessage($email, $activation, $password)
+  protected function getActivationMailMessage(sfObjectGuardUser $user, $activation, $password)
   {
     return Swift_Message::newInstance()
       ->setFrom(sfConfig::get('app_robot_mail_address'))
-      ->setTo($email)
+      ->setTo($user->getEmail())
       ->setSubject($this->getPartial('mailNotificationSubject'))
       ->setBody($this->getPartial('mailNotificationBody', array(
-        'email'     => $email,
+        'user'      => $user,
         'key'       => $activation,
         'password'  => $password
       )));
