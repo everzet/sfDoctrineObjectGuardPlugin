@@ -23,14 +23,17 @@ sfObjectGuardActivationKey:
     User:
       class:          sfObjectGuardUser
       local:          user_id
+      foreignAlias:   ActivationKeys
       onDelete:       CASCADE
     Inviter:
       class:          sfObjectGuardUser
       local:          inviter_id
+      foreignAlias:   Invites
       onDelete:       CASCADE
     KeyType:
       class:          sfObjectGuardActivationKeyType
       local:          key_type_id
+      foreignAlias:   Keys
       onDelete:       CASCADE
   options:
     collate:          utf8_unicode_ci

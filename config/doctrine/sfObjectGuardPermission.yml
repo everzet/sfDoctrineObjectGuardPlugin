@@ -9,13 +9,6 @@ sfObjectGuardPermission:
       type:           string(255)
       unique:         true
     description:      string(1000)
-  relations:
-    Groups:
-      class:          sfObjectGuardGroup
-      local:          permission_id
-      foreign:        group_id
-      refClass:       sfObjectGuardGroupPermission
-      foreignAlias:   Permissions
   options:
     collate:          utf8_unicode_ci
     charset:          utf8

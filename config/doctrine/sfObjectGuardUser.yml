@@ -42,15 +42,11 @@ sfObjectGuardUser:
     KeyType:
       class:          sfObjectGuardActivationKeyType
       local:          key_type_id
-      onDelete:       CASCADE
+      onDelete:       RESTRICT
     Inviter:
       class:          sfObjectGuardUser
       local:          inviter_id
-      onDelete:       CASCADE
-    ActivationKeys:
-      class:          sfObjectGuardActivationKey
-      local:          id
-      foreign:        user_id
+      onDelete:       RESTRICT
   options:
     collate:          utf8_unicode_ci
     charset:          utf8

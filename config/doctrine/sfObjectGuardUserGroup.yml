@@ -15,10 +15,12 @@ sfObjectGuardUserGroup:
     User:
       class:          sfObjectGuardUser
       local:          user_id
+      foreignType:    one
       onDelete:       CASCADE
     Group:
       class:          sfObjectGuardGroup
       local:          group_id
+      foreignType:    one
       onDelete:       CASCADE
   options:
     symfony:
